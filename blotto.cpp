@@ -147,6 +147,7 @@ void make_war(Player& a, Player& b)
 
 
 
+
 /*
 int Player::compete(std::vector<Player> all_Players)
 {

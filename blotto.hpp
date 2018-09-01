@@ -45,6 +45,7 @@ std::vector<Player> round_robin(const std::vector<Player>&,
 
 
 
+
 /*
 Player::Player(): total_score(0)
 {
