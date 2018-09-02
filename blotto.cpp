@@ -77,9 +77,9 @@ Player::Player(int n): total_score(0)
 
     troop_deployment.push_back(n - troops_added_so_far);
 
-    sort(troop_deployment.begin(), troop_deployment.end(), compare);
+    std::sort(troop_deployment.begin(), troop_deployment.end(), compare);
 
-    std::random_shuffle(troop_deployment.begin(), troop_deployment.end());
+    std::random_shuffle(troop_deployment.begin() + 4, troop_deployment.end());
 } 
 
 
