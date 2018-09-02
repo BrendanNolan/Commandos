@@ -55,17 +55,15 @@ int main(int argc, char* argv[])
                                                    0, 0, 0, 0, 0 }));
 
     // for the 90- and 110-troop scenarios, test 
-    std::vector<int> troop_counts = { 90, 110 };
+    std::vector<int> troop_counts = { 100, 100 };
 
     for (int i = 0; i < 2; ++i)
     {
         int max_score = 0;
         for (int j = 0; j < 1000; ++j)
         {
-            Player plyr;
-            for (const_iter it = elite_Player_vec.begin(); it != 
-                 elite_Player_vec.end(); ++it)
-                make_one_sided_war(plyr, *it);     
+            Player plyr(troop_counts[i]);
+            play_all(plyr, elite_Player_vec);    
 
             if (plyr.get_score() > max_score)
             {

@@ -90,19 +90,18 @@ bool compare(Player& a, Player& b)
     return a.get_score() > b.get_score();
 }
 
-void play_all(Player& cotestant, std::vector<Player> field)
+void play_all(Player& contestant, const std::vector<Player>& field)
 {
-
+    for (const_iter i = field.begin(); i != field.end(); ++i)
+                make_one_sided_war(contestant, *i);
 }
  
 std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec, 
                                                int num_iterations)
 {
-    std::vector<Player> ret;
     if (num_iterations == 0)
-    {
-        ret = vec;  
-        return ret;
+    {  
+        return vec;
     }
     else
     {    
@@ -110,15 +109,15 @@ std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec,
             throw std::domain_error("need at least two Player"
                                     " objects for round robin");
         
-        ret.clear();
+        std::vector<Player> ret;
+        ret.clear(); // prob not necessary
 
         for (const_iter j = vec.begin(); j != vec.end(); ++j)
         {
             Player plyr = *j;
             plyr.zero();
 
-            for (const_iter i = vec.begin(); i != vec.end(); ++i)
-                make_one_sided_war(plyr, *i);
+            play_all(plyr, vec);
 
             ret.push_back(plyr);
         }    

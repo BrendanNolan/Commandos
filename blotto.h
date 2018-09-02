@@ -28,7 +28,10 @@ void make_one_sided_war(Player&, const Player&);
 
 bool compare(Player&, Player&);
 
-std::vector<Player> play_recursive_round_robin(const std::vector<Player>&, int);
+void play_all(Player&, const std::vector<Player>&);
+
+std::vector<Player> play_recursive_round_robin(
+    const std::vector<Player>&, int);
 
 
 #endif
