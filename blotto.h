@@ -28,9 +28,7 @@ void make_one_sided_war(Player&, const Player&);
 
 bool compare(Player&, Player&);
 
-std::vector<Player> partial_round_robin(const std::vector<Player>&, 
-                                double desired_score,
-                                std::vector<Player>::size_type);
+std::vector<Player> play_recursive_round_robin(const std::vector<Player>&, int);
 
 
 #endif

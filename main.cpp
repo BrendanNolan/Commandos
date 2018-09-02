@@ -8,7 +8,7 @@
 #include "blotto.h"
 
 template <class It>
-void my_print(It a, It b)
+void iter_print(It a, It b)
 {
     for (It i = a; i != b; ++i)
         std::cout << *i << " ";
@@ -18,6 +18,56 @@ void my_print(It a, It b)
     return;
 }
 
+int main(int argc, char* argv[])
+{
+
+    if (argc != 3) 
+    {
+        throw std::domain_error("Usage ./<file name>"
+            " number-of-bots" 
+            " number of round-robin rounds");              
+    }    
+
+    typedef std::vector<Player>::iterator iter;
+    typedef std::vector<Player>::const_iterator const_iter;
+    typedef std::vector<Player>::size_type sz_tp;
+
+    sz_tp num_bots = atoi(argv[1]);
+    int num_rounds = atoi(argv[2]);
+
+    srand(42);
+
+    std::vector<Player> Player_vec(num_bots);
+
+    std::vector<Player> elite_Player_vec = play_recursive_round_robin(
+                                               Player_vec, num_rounds);                                                           
+
+    Player chosen_one = elite_Player_vec[0];
+    
+    std::cout << "Chosen strategy: " << std::endl;
+    iter_print((chosen_one.get_troops()).begin(), 
+             (chosen_one.get_troops()).end()); 
+              
+    return 0;
+}
+
+
+
+/*
+    std::cout << "Player_vec.size(): " << Player_vec.size() << std::endl 
+              << "elite_Player_vec.size(): " << elite_Player_vec.size() << std::endl;
+
+    Player winner_of_fair_battles = elite_Player_vec[0];          
+    Player runner_up_in_fair_battles = elite_Player_vec[1];
+
+    iter_print((winner_of_fair_battles.get_troops()).begin(), 
+             (winner_of_fair_battles.get_troops()).end());
+    std::cout << winner_of_fair_battles.get_score() << std::endl;         
+    iter_print((runner_up_in_fair_battles.get_troops()).begin(), 
+             (runner_up_in_fair_battles.get_troops()).end());
+    std::cout << runner_up_in_fair_battles.get_score() << std::endl;        
+*/
+                    /*
 int main(int argc, char* argv[])
 {
     if (argc != 6)
@@ -44,13 +94,19 @@ int main(int argc, char* argv[])
 
 
     std::vector<Player> Player_vec(num_bots);
-  
-    std::vector<Player> good_Player_vec = partial_round_robin(Player_vec, 
-                                                      desired_score,
-                                                      max_num_good_Players);                                                         
 
-    std::vector<Player> best_good_Player_vec = partial_round_robin(good_Player_vec, 0, 
-                                                good_Player_vec.size());
+    std::vector<Player> elite_Player_vec = 
+        play_recursive_round_robin(PLayer_vec, 2);
+                    
+    std::vector<Player> good_Player_vec;
+    copy(play_recursive_round_robin_robin(Player_vec).begin(), 
+        play_recursive_round_robin_robin(Player_vec).begin() + num_bots / 4,
+        back_inserter(good_Player_vec));
+
+
+
+    std::vector<Player> best_good_Player_vec = 
+    play_recursive_round_robin_robin(good_Player_vec, 2);                     
 
     sort(best_good_Player_vec.begin(), best_good_Player_vec.end(), compare); 
 
@@ -58,7 +114,7 @@ int main(int argc, char* argv[])
     Player chosen_Player = best_good_Player_vec[0];  
 
     std::cout << "The chosen strategy for 100 troops: " << std::endl;
-    my_print((chosen_Player.get_troops()).begin(), 
+    iter_print((chosen_Player.get_troops()).begin(), 
              (chosen_Player.get_troops()).end());
     std::cout << "had an average score of "
               << chosen_Player.get_score() / (good_Player_vec.size() - 1) 
@@ -94,7 +150,7 @@ int main(int argc, char* argv[])
                              "strategy chosen for when we have "
                           << new_troop_nums[i] << " troops is: " << std::endl;   
                 
-                my_print(random_Player.get_troops().begin(), 
+                iter_print(random_Player.get_troops().begin(), 
                 random_Player.get_troops().end());
                 
                 std::cout << "which scored on average: " 
@@ -110,10 +166,10 @@ int main(int argc, char* argv[])
     }
 // -----------------------------------------------
 
-
+                    
     return 0; 
 }
-
+                    */
 
 /*
 std::cout << Player_vec.size() << std::endl
@@ -155,7 +211,7 @@ int data member.
     /* Prints good_Player_vec
     for (iter i = good_Player_vec.begin(); i != good_Player_vec.end(); ++i)
     {
-        my_print((i->get_troops()).begin(), (i->get_troops()).end());
+        iter_print((i->get_troops()).begin(), (i->get_troops()).end());
     }
     */
 
@@ -192,7 +248,7 @@ int data member.
         {
             std::cout << "the algorithm's chosen strategy: ";
             
-            my_print(random_Player.get_troops().begin(), 
+            iter_print(random_Player.get_troops().begin(), 
              random_Player.get_troops().end());
             
             std::cout << std::endl << "scored on average: " 
@@ -263,7 +319,7 @@ int data member.
               << std::endl   
               << "The Player called rando has troop_edployment member: ";
 
-    my_print(rando.get_troops().begin(), rando.get_troops().end());
+    iter_print(rando.get_troops().begin(), rando.get_troops().end());
 
     std::cout << "and average score "
               << ((double) rando.get_score()) / 

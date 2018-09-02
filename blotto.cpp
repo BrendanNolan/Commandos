@@ -9,6 +9,7 @@
 
 typedef std::vector<Player>::iterator iter;
 typedef std::vector<Player>::const_iterator const_iter;
+typedef std::vector<Player>::size_type sz_tp;
 
 // return a unif random variable in the range [0, n]
 int gen_unif_rv(int n)
@@ -77,7 +78,7 @@ Player::Player(int n): total_score(0)
 
     troop_deployment.push_back(n - troops_added_so_far);
 
-    std::sort(troop_deployment.begin(), troop_deployment.end(), compare);
+    std::sort(troop_deployment.begin(), troop_deployment.end());
 
     std::random_shuffle(troop_deployment.begin() + 4, troop_deployment.end());
 } 
@@ -89,43 +90,44 @@ bool compare(Player& a, Player& b)
     return a.get_score() > b.get_score();
 }
 
-// This function takes a const ref to a vector<Player> vec, then one at a time 
-// it copies a Player from vec, zeroes it, and pits it against every 
-// Player in vec using the make_one_sided_war function. If the copied player 
-// finishes with score >= desired_score, it is pushed back onto the
-// vector<Player> to be returned. 
-// We could add something like sort(ret.begin(), ret.end(), compare) if we 
-// wanted partial_round_robin to sort the vector in order of total_score, so that the 
-// highest scoring Player is at position 0 in the vector. 
-std::vector<Player> partial_round_robin(const std::vector<Player>& vec, 
-                                double desired_score, 
-                                std::vector<Player>::size_type desired_size)
+ 
+std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec, 
+                                               int num_iterations)
 {
-    if (vec.size() < 2)
-        throw std::domain_error("need at least two Player"
-                                " objects for round robin");
-
     std::vector<Player> ret;
-
-    std::vector<Player>::size_type length = vec.size();
-
-    for (std::vector<Player>::size_type i = 0; i < length; ++i)
+    if (num_iterations == 0)
     {
-        Player plyr = vec[i];
-        plyr.zero();
+        ret = vec;  
+        return ret;
+    }
+    else
+    {    
+        if (vec.size() < 2)
+            throw std::domain_error("need at least two Player"
+                                    " objects for round robin");
+        
+        ret.clear();
 
-        for (const_iter i = vec.begin(); i != vec.end(); ++i)
-            make_one_sided_war(plyr, *i);
+        for (const_iter j = vec.begin(); j != vec.end(); ++j)
+        {
+            Player plyr = *j;
+            plyr.zero();
 
-        // The -1 below is there because plyr played one game against himself 
-        if (plyr.get_score() / (length - 1) >= desired_score) 
+            for (const_iter i = vec.begin(); i != vec.end(); ++i)
+                make_one_sided_war(plyr, *i);
+
             ret.push_back(plyr);
+        }    
+        
+        sort(ret.begin(), ret.end(), compare);
 
-        if (ret.size() == desired_size)
-            break;     
+        // remove the latter (lowest-scoring) half of the Players in ret
+        sz_tp ret_size = ret.size(); 
+        for (sz_tp s = 0; s < ret_size / 2; ++s)
+            ret.pop_back();
+
+        return play_recursive_round_robin(ret, num_iterations - 1);
     }    
-
-    return ret;
 }
 
 /* Have a battle and assign players their scores (works but commented out 
