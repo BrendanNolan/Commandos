@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "blotto.hpp"
+#include "blotto.h"
 
 template <class It>
 void my_print(It a, It b)
@@ -20,10 +20,14 @@ void my_print(It a, It b)
 
 int main(int argc, char* argv[])
 {
-    if (argc != 4)
+    if (argc != 6)
     {
-        throw std::domain_error("Usage ./<file name> number-of-bots" 
-        "desired-score-vs-bots max-number-of-good-Players");
+        throw std::domain_error("Usage ./<file name>"
+        " number-of-bots" 
+        " desired-score-vs-bots-when-you-have-100-troops"
+        " desired-score-vs-bots-when-you-have-90-troops"
+        " desired-score-vs-botswhen-you-have-110-troops" 
+        " max-number-of-good-Players");
     }
 
     srand(time(NULL));
@@ -34,22 +38,26 @@ int main(int argc, char* argv[])
 
     svP_sz_tp num_bots = atoi(argv[1]);
     double desired_score = atof(argv[2]);
-    svP_sz_tp max_num_good_Players = atoi(argv[3]);
+    double desired_score_90 = atof(argv[3]);
+    double desired_score_110 = atof(argv[4]);
+    svP_sz_tp max_num_good_Players = atoi(argv[5]);
+
 
     std::vector<Player> Player_vec(num_bots);
-    
-    std::vector<Player> good_Player_vec = round_robin(Player_vec, 
+  
+    std::vector<Player> good_Player_vec = partial_round_robin(Player_vec, 
                                                       desired_score,
                                                       max_num_good_Players);                                                         
 
-    std::vector<Player> best_good_Player_vec = round_robin(good_Player_vec, 0, 
+    std::vector<Player> best_good_Player_vec = partial_round_robin(good_Player_vec, 0, 
                                                 good_Player_vec.size());
 
-    sort(best_good_Player_vec.begin(), best_good_Player_vec.end(), compare);                                            
+    sort(best_good_Player_vec.begin(), best_good_Player_vec.end(), compare); 
 
+                                             
     Player chosen_Player = best_good_Player_vec[0];  
 
-    std::cout << "The chosen strategy: ";
+    std::cout << "The chosen strategy for 100 troops: " << std::endl;
     my_print((chosen_Player.get_troops()).begin(), 
              (chosen_Player.get_troops()).end());
     std::cout << "had an average score of "
@@ -61,11 +69,57 @@ int main(int argc, char* argv[])
               << " high-perfoming strategies chosen from the "
               << num_bots 
               << " randm bot strategies."
+              << std::endl
               << std::endl;
+
+
+// ----------------------------------------------
+    std::vector<int> new_troop_nums = { 90, 110 };
+    std::vector<double> new_desired_scores = 
+        { desired_score_90, desired_score_110 };
+    for (int i = 0; i < 2; ++i)
+    {
+        while (true)
+        {
+            Player random_Player(new_troop_nums[i]);
+            
+            for (iter i = good_Player_vec.begin(); 
+                 i != good_Player_vec.end(); ++i)
+                make_one_sided_war(random_Player, *i);
+        
+            if (random_Player.get_score() / 
+                max_num_good_Players >= new_desired_scores[i])
+            {
+                std::cout << "Using similar methods to those above, the "
+                             "strategy chosen for when we have "
+                          << new_troop_nums[i] << " troops is: " << std::endl;   
+                
+                my_print(random_Player.get_troops().begin(), 
+                random_Player.get_troops().end());
+                
+                std::cout << "which scored on average: " 
+                        << random_Player.get_score() / 
+                            max_num_good_Players
+                        << " points."    
+                        << std::endl
+                        << std::endl;
+
+                break;
+            }
+        }          
+    }
+// -----------------------------------------------
 
 
     return 0; 
 }
+
+
+/*
+std::cout << Player_vec.size() << std::endl
+              << good_Player_vec.size() << std::endl
+              << best_good_Player_vec.size() << std::endl;  
+*/
 
 
 

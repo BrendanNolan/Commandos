@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 
-#include "blotto.hpp"
+#include "blotto.h"
 
 typedef std::vector<Player>::iterator iter;
 typedef std::vector<Player>::const_iterator const_iter;
@@ -42,6 +42,7 @@ void make_one_sided_war(Player& a, const Player& b)
     }
 }
 
+/*
 Player::Player(): total_score(0)
 {
     int troops_added_so_far = 0;
@@ -57,6 +58,31 @@ Player::Player(): total_score(0)
 
     std::random_shuffle(troop_deployment.begin(), troop_deployment.end());
 } 
+*/
+
+
+// Rather than a random shuffle, of all the numbers, it might be best to 
+// randomly shuffle the highest 6 castles and put the lowest numbers of 
+// troops on castle 1, ..., fourth lowest on castle 4 or something like that. 
+Player::Player(int n): total_score(0)
+{
+    int troops_added_so_far = 0;
+
+    while (troops_added_so_far <= n && troop_deployment.size() < 9)
+    {
+        int to_add = gen_unif_rv(n - troops_added_so_far);
+        troop_deployment.push_back(to_add);
+        troops_added_so_far += to_add;
+    }
+
+    troop_deployment.push_back(n - troops_added_so_far);
+
+    sort(troop_deployment.begin(), troop_deployment.end(), compare);
+
+    std::random_shuffle(troop_deployment.begin(), troop_deployment.end());
+} 
+
+
 
 bool compare(Player& a, Player& b)
 {
@@ -69,12 +95,16 @@ bool compare(Player& a, Player& b)
 // finishes with score >= desired_score, it is pushed back onto the
 // vector<Player> to be returned. 
 // We could add something like sort(ret.begin(), ret.end(), compare) if we 
-// wanted round_robin to sort the vector in order of total_score, so that the 
+// wanted partial_round_robin to sort the vector in order of total_score, so that the 
 // highest scoring Player is at position 0 in the vector. 
-std::vector<Player> round_robin(const std::vector<Player>& vec, 
+std::vector<Player> partial_round_robin(const std::vector<Player>& vec, 
                                 double desired_score, 
                                 std::vector<Player>::size_type desired_size)
 {
+    if (vec.size() < 2)
+        throw std::domain_error("need at least two Player"
+                                " objects for round robin");
+
     std::vector<Player> ret;
 
     std::vector<Player>::size_type length = vec.size();

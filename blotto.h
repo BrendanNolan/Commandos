@@ -15,7 +15,8 @@ public:
     // void initialise();
     void zero() {total_score = 0;}
 
-    Player(int);
+//    Player();
+    Player(int n = 100);
     Player(std::vector<int> vec) : troop_deployment(vec), total_score(0)           
     {}
 };
@@ -27,7 +28,7 @@ void make_one_sided_war(Player&, const Player&);
 
 bool compare(Player&, Player&);
 
-std::vector<Player> round_robin(const std::vector<Player>&, 
+std::vector<Player> partial_round_robin(const std::vector<Player>&, 
                                 double desired_score,
                                 std::vector<Player>::size_type);
 
