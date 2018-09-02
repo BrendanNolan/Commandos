@@ -44,10 +44,44 @@ int main(int argc, char* argv[])
 
     Player chosen_one = elite_Player_vec[0];
     
-    std::cout << "Chosen strategy: " << std::endl;
+    std::cout << "Chosen 100-troop strategy: ";
     iter_print((chosen_one.get_troops()).begin(), 
              (chosen_one.get_troops()).end()); 
-              
+
+    // create a vector which will hold our chosen Players for the 90- and 100-
+    // troop scenarios. Initialise them both to hold no troops (they will be 
+    // oberwritten anyway). 
+    std::vector<Player> unfair_Players(2, Player({ 0, 0, 0, 0, 0, 
+                                                   0, 0, 0, 0, 0 }));
+
+    // for the 90- and 110-troop scenarios, test 
+    std::vector<int> troop_counts = { 90, 110 };
+
+    for (int i = 0; i < 2; ++i)
+    {
+        int max_score = 0;
+        for (int j = 0; j < 1000; ++j)
+        {
+            Player plyr;
+            for (const_iter it = elite_Player_vec.begin(); it != 
+                 elite_Player_vec.end(); ++it)
+                make_one_sided_war(plyr, *it);     
+
+            if (plyr.get_score() > max_score)
+            {
+                max_score = plyr.get_score();
+                unfair_Players[i] = plyr;
+            }
+        }
+    }         
+
+    std::cout << std::endl << "Chosen 90-troop  strategy: ";
+    iter_print((unfair_Players[0].get_troops()).begin(),
+               (unfair_Players[0].get_troops()).end());
+    std::cout << std::endl << "Chosen 110-troop strategy: ";               
+    iter_print((unfair_Players[1].get_troops()).begin(),
+               (unfair_Players[1].get_troops()).end());
+
     return 0;
 }
 

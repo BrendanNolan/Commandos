@@ -90,6 +90,10 @@ bool compare(Player& a, Player& b)
     return a.get_score() > b.get_score();
 }
 
+void play_all(Player& cotestant, std::vector<Player> field)
+{
+
+}
  
 std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec, 
                                                int num_iterations)
