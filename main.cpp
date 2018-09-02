@@ -7,6 +7,8 @@
 
 #include "blotto.h"
 
+// Print elements of a container in the range [a, b). Enclose
+// output in parentheses and separate elements by commas. 
 template <class It>
 void iter_print(It a, It b)
 {
