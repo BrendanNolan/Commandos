@@ -1,8 +1,7 @@
 #include <algorithm>
 #include <cstdlib>
-#include <ctime>
 #include <iostream>
-#include <list>
+#include <stdexcept>
 #include <vector>
 
 #include "blotto.h"
@@ -85,10 +84,10 @@ void make_one_sided_battle(Player& a, const Player& b)
 
 
 
-void play_all(Player& contestant, const std::vector<Player>& field)
+void battle_all(Player& contestant, const std::vector<Player>& field)
 {
     for (const_iter i = field.begin(); i != field.end(); ++i)
-                make_one_sided_battle(contestant, *i);
+        make_one_sided_battle(contestant, *i);
 
     return;                
 }
@@ -96,9 +95,9 @@ void play_all(Player& contestant, const std::vector<Player>& field)
 
 
 std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec, 
-                                               int num_iterations)
+                                               int num_rounds)
 {
-    if (num_iterations == 0)
+    if (num_rounds == 0)
     {  
         return vec;
     }
@@ -120,7 +119,7 @@ std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec,
             plyr.zero();
             // let plyr battle every other Player object and keep track of 
             // the total_score of plyr
-            play_all(plyr, vec);
+            battle_all(plyr, vec);
 
             ret.push_back(plyr);
         }    
@@ -132,6 +131,6 @@ std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec,
         for (sz_tp s = 0; s < ret_size / 2; ++s)
             ret.pop_back();
 
-        return play_recursive_round_robin(ret, num_iterations - 1);
+        return play_recursive_round_robin(ret, num_rounds - 1);
     }    
 }

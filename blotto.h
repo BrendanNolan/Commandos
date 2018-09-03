@@ -2,7 +2,6 @@
 #define GUARD_BLOTTO_H
 
 #include <vector>
-#include <ctime>
 
 class Player {
     // A vector of integers describing the strategy for sending soldiers
@@ -32,8 +31,7 @@ public:
     
     // Create a Player object by providing a soldier_deployment member
     // (the Player object will have total_score member equal to 0)
-    Player(std::vector<int> vec) : soldier_deployment(vec), total_score(0)           
-    {}
+    Player(std::vector<int> vec) : soldier_deployment(vec), total_score(0) {}
 };
 
 // return a unif random variable in the range [0, n]
@@ -53,9 +51,9 @@ void make_one_sided_battle(Player&, const Player&);
 // of contestant after each battle, so that the total_score member of 
 // contestant contains the final score of contestant after battling every member 
 // of field
-void play_all(Player&, const std::vector<Player>&);
+void battle_all(Player&, const std::vector<Player>&);
 
-// Take a vector of Player objects and play num_iterations of "round-robin" 
+// Take a vector of Player objects and play num_rounds of "round-robin" 
 // tournaments between them, where the worst-performing 50% of Player objects
 // in each tournament are disqualified from the next tournament. Return 
 // a vector of Player objects which contains the surviving PLayer objects,
@@ -63,7 +61,6 @@ void play_all(Player&, const std::vector<Player>&);
 // makes every Player object battle itself during the tournament; this is 
 // harmless since the result of this battle adds zero to the total_score member
 // of that Player object.
-std::vector<Player> play_recursive_round_robin(
-    const std::vector<Player>&, int);
+std::vector<Player> play_recursive_round_robin(const std::vector<Player>&, int);
 
 #endif
