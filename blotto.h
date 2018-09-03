@@ -95,7 +95,8 @@ void improved_play_round_robin(it beg_iter, it end_iter,
 // the only way that this is not better than play_recursive_round_robin is that
 // it changes its first argument. But even if you didn't want this, a similar
 // function that copied its first argument would probably still be faster 
-// than play_recursive_round_robin
+// than play_recursive_round_robin. It might be best to have this function 
+// return a std::vector<Player> instead of a std::vector<Player>& 
 std::vector<Player>& recursive_improved_play_round_robin(
     std::vector<Player>& vec, int num_rounds);
 

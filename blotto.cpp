@@ -114,7 +114,8 @@ void battle_all(Player& contestant, const std::vector<Player>& field)
 
 
 
-
+// It might be best to have this function 
+// return a std::vector<Player> instead of a std::vector<Player>&
 std::vector<Player>& recursive_improved_play_round_robin(
     std::vector<Player>& vec, int num_rounds)
 {
