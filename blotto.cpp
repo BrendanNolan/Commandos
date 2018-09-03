@@ -30,21 +30,28 @@ int gen_unif_rv(int n)
 
 Player::Player(int n): total_score(0)
 {
-    int troops_added_so_far = 0;
+    // Make soldier_deployment a random vector of 10 integers which sum to n
+    int soldiers_added_so_far = 0;
 
-    while (troops_added_so_far <= n && troop_deployment.size() < 9)
+    while (soldiers_added_so_far <= n && soldier_deployment.size() < 9)
     {
-        int to_add = gen_unif_rv(n - troops_added_so_far);
-        troop_deployment.push_back(to_add);
-        troops_added_so_far += to_add;
+        int to_add = gen_unif_rv(n - soldiers_added_so_far);
+        soldier_deployment.push_back(to_add);
+        soldiers_added_so_far += to_add;
     }
 
-    troop_deployment.push_back(n - troops_added_so_far);
+    soldier_deployment.push_back(n - soldiers_added_so_far);
 
-    std::sort(troop_deployment.begin(), troop_deployment.end());
 
-    std::random_shuffle(troop_deployment.begin(), troop_deployment.begin() + 4);
-    std::random_shuffle(troop_deployment.begin() + 4, troop_deployment.end());
+    // sort soldier_deployment so that its elements appear in increasing order
+    std::sort(soldier_deployment.begin(), soldier_deployment.end());
+
+    // shuffle the first four elements of soldier_deployment
+    std::random_shuffle(soldier_deployment.begin(), 
+                        soldier_deployment.begin() + 4);
+    // shuffle the last six elements of soldier_deployment                    
+    std::random_shuffle(soldier_deployment.begin() + 4, 
+                        soldier_deployment.end());
 }
 
 
@@ -56,21 +63,21 @@ bool compare(const Player& a, const Player& b)
 
 
 
-void make_one_sided_war(Player& a, const Player& b)
+void make_one_sided_battle(Player& a, const Player& b)
 {
-    std::vector<int>::const_iterator iter_a = a.get_troops().begin();
-    std::vector<int>::const_iterator iter_b = b.get_troops().begin();
-    std::vector<int>::const_iterator iter_a_end = a.get_troops().end();
+    std::vector<int>::const_iterator iter_a = a.get_soldiers().begin();
+    std::vector<int>::const_iterator iter_b = b.get_soldiers().begin();
+    std::vector<int>::const_iterator iter_a_end = a.get_soldiers().end();
 
-    int counter = 1;
+    int castle_value = 1;
     while (iter_a != iter_a_end)
     {
         if (*iter_a > *iter_b)
-            a.change_score(counter);
+            a.increase_score(castle_value);
 
         ++iter_a;
         ++iter_b;
-        ++counter;
+        ++castle_value;
     }
 
     return;
@@ -81,7 +88,7 @@ void make_one_sided_war(Player& a, const Player& b)
 void play_all(Player& contestant, const std::vector<Player>& field)
 {
     for (const_iter i = field.begin(); i != field.end(); ++i)
-                make_one_sided_war(contestant, *i);
+                make_one_sided_battle(contestant, *i);
 
     return;                
 }
@@ -106,9 +113,13 @@ std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec,
 
         for (const_iter j = vec.begin(); j != vec.end(); ++j)
         {
+            // Declare a Player object called plyr and copy the pointee of j
+            // into plyr
             Player plyr = *j;
+            // disguard possible previously accumulated score
             plyr.zero();
-
+            // let plyr battle every other Player object and keep track of 
+            // the total_score of plyr
             play_all(plyr, vec);
 
             ret.push_back(plyr);
