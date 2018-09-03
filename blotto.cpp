@@ -115,7 +115,7 @@ void battle_all(Player& contestant, const std::vector<Player>& field)
 
 
 
-std::vector<Player> recursive_improved_play_round_robin(
+std::vector<Player>& recursive_improved_play_round_robin(
     std::vector<Player>& vec, int num_rounds)
 {
     if (num_rounds == 0)
