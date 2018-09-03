@@ -15,7 +15,7 @@ void iter_print(It a, It b)
     std::cout << "( " << *a;
     for (It i = ++a; i != b; ++i)
         std::cout << ", " << *i;
-    std::cout << " )" << std::endl;
+    std::cout << " )";
 
     return;
 }
@@ -52,6 +52,7 @@ int main(int argc, char* argv[])
     std::cout << "When I have 100 soldiers, I will use this strategy: ";
     iter_print((chosen_one.get_soldiers()).begin(), 
              (chosen_one.get_soldiers()).end()); 
+    std::cout << std::endl;         
 
     // create a vector which will hold our chosen Players for the 90- and 100-
     // soldier scenarios. Initialise them both to hold no soldiers (they will be 
@@ -82,10 +83,12 @@ int main(int argc, char* argv[])
                             " I will use this strategy: ";
     iter_print((unfair_Players[0].get_soldiers()).begin(),
                (unfair_Players[0].get_soldiers()).end());
+    std::cout << std::endl;           
     std::cout << std::endl << "When I have 110 soldiers, "
                             "I will use this strategy: ";               
     iter_print((unfair_Players[1].get_soldiers()).begin(),
                (unfair_Players[1].get_soldiers()).end());
+    std::cout << std::endl; 
                         
     return 0;
 }
