@@ -46,14 +46,10 @@ int main(int argc, char* argv[])
 
     std::vector<Player> elite_Player_vec = play_recursive_round_robin(
                                                Player_vec, num_rounds); 
-    //-------------------------------------
-    std::cout << elite_Player_vec.size() << " elite Players were chosen,"
-                 " each having 100 soldiers."
-              << std::endl << std::endl;                                                                                                   
-    //-------------------------------------
+   
     Player chosen_one = elite_Player_vec[0];
     
-    std::cout << "When I have 100 soldiers, I choose the following strategy: ";
+    std::cout << "When I have 100 soldiers, I will use this strategy: ";
     iter_print((chosen_one.get_soldiers()).begin(), 
              (chosen_one.get_soldiers()).end()); 
 
@@ -81,15 +77,15 @@ int main(int argc, char* argv[])
             }
         }
     }         
-
+                        
     std::cout << std::endl << "When I have 90 soldiers, "
-                            "I choose the following strategy: ";
+                            "I will use this strategy: ";
     iter_print((unfair_Players[0].get_soldiers()).begin(),
                (unfair_Players[0].get_soldiers()).end());
     std::cout << std::endl << "When I have 110 soldiers, "
-                            "I choose the following strategy: ";               
+                            "I will use this strategy: ";               
     iter_print((unfair_Players[1].get_soldiers()).begin(),
                (unfair_Players[1].get_soldiers()).end());
-
+                        
     return 0;
 }
