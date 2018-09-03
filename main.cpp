@@ -23,32 +23,37 @@ void iter_print(It a, It b)
 int main(int argc, char* argv[])
 {
 
-    if (argc != 4) 
+    if (argc != 5) 
     {
         throw std::domain_error("Usage ./<file name>"
+            "random-number-seed"
             " number-of-bots" 
             " number-of-round-robin-rounds"
             " number-of-trials-to-find-unfair-strategy");              
     }    
 
+    srand(atoi(argv[1]));
+
     typedef std::vector<Player>::iterator iter;
     typedef std::vector<Player>::const_iterator const_iter;
     typedef std::vector<Player>::size_type sz_tp;
 
-    sz_tp num_bots = atoi(argv[1]);
-    int num_rounds = atoi(argv[2]);
-    int num_trials = atoi(argv[3]);
-
-    srand(75);
+    sz_tp num_bots = atoi(argv[2]);
+    int num_rounds = atoi(argv[3]);
+    int num_trials = atoi(argv[4]);
 
     std::vector<Player> Player_vec(num_bots);
 
     std::vector<Player> elite_Player_vec = play_recursive_round_robin(
-                                               Player_vec, num_rounds);                                                           
-
+                                               Player_vec, num_rounds); 
+    //-------------------------------------
+    std::cout << elite_Player_vec.size() << " elite Players were chosen,"
+                 " each having 100 soldiers."
+              << std::endl << std::endl;                                                                                                   
+    //-------------------------------------
     Player chosen_one = elite_Player_vec[0];
     
-    std::cout << "Chosen 100-soldier strategy: ";
+    std::cout << "When I have 100 soldiers, I choose the following strategy: ";
     iter_print((chosen_one.get_soldiers()).begin(), 
              (chosen_one.get_soldiers()).end()); 
 
@@ -77,10 +82,12 @@ int main(int argc, char* argv[])
         }
     }         
 
-    std::cout << std::endl << "Chosen 90-soldier  strategy: ";
+    std::cout << std::endl << "When I have 90 soldiers, "
+                            "I choose the following strategy: ";
     iter_print((unfair_Players[0].get_soldiers()).begin(),
                (unfair_Players[0].get_soldiers()).end());
-    std::cout << std::endl << "Chosen 110-soldier strategy: ";               
+    std::cout << std::endl << "When I have 110 soldiers, "
+                            "I choose the following strategy: ";               
     iter_print((unfair_Players[1].get_soldiers()).begin(),
                (unfair_Players[1].get_soldiers()).end());
 
