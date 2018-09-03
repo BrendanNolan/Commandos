@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
     }         
                         
     std::cout << std::endl << "When I have 90 soldiers, "
-                            "I will use this strategy: ";
+                            " I will use this strategy: ";
     iter_print((unfair_Players[0].get_soldiers()).begin(),
                (unfair_Players[0].get_soldiers()).end());
     std::cout << std::endl << "When I have 110 soldiers, "
