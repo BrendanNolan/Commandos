@@ -7,19 +7,6 @@
 
 #include "blotto.h"
 
-// Print elements of a container in the range [a, b). Enclose
-// output in parentheses and separate elements by commas. 
-template <class It>
-void iter_print(It a, It b)
-{
-    std::cout << "( " << *a;
-    for (It i = ++a; i != b; ++i)
-        std::cout << ", " << *i;
-    std::cout << " )";
-
-    return;
-}
-
 int main(int argc, char* argv[])
 {
 
@@ -44,12 +31,12 @@ int main(int argc, char* argv[])
 
     std::vector<Player> Player_vec(num_bots);
 
-    std::vector<Player> elite_Player_vec = play_recursive_round_robin(
-        Player_vec, num_rounds); 
+    std::vector<Player> elite_Player_vec = recursive_improved_play_round_robin(
+        Player_vec, num_rounds);                         
 
     std::cout << elite_Player_vec.size() << " competent bots were chosen." 
           << std::endl << std::endl;    
-   
+                                                                              
     Player chosen_one = elite_Player_vec[0];
     
     std::cout << "When I have 100 soldiers, I will use this strategy: ";
@@ -92,6 +79,7 @@ int main(int argc, char* argv[])
     iter_print(unfair_Players[1].get_soldiers().begin(),
                unfair_Players[1].get_soldiers().end());
     std::cout << std::endl; 
-
+                                                                              
+                                                                           
     return 0;
 }

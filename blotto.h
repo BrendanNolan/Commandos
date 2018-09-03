@@ -3,6 +3,20 @@
 
 #include <vector>
 
+// Print elements of a container in the range [a, b). Enclose
+// output in parentheses and separate elements by commas. 
+template <class It>
+void iter_print(It a, It b)
+{
+    std::cout << "( " << *a;
+    for (It i = ++a; i != b; ++i)
+        std::cout << ", " << *i;
+    std::cout << " )";
+
+    return;
+}
+
+
 class Player {
     // A vector of integers describing the strategy for sending soldiers
     // to castles.
@@ -42,6 +56,8 @@ int gen_unif_rv(int);
 // placing the highest-scoring Player in position 0.
 bool compare(const Player&, const Player&);
 
+void make_battle(Player&, Player&);
+
 // Have a battle and add to score of Player a only.
 void make_one_sided_battle(Player&, const Player&);
 
@@ -53,6 +69,40 @@ void make_one_sided_battle(Player&, const Player&);
 // of field
 void battle_all(Player&, const std::vector<Player>&);
 
+
+
+// new improved round robin that doesn't play every battle twice
+template <class it, class ptee>
+void improved_play_round_robin(it beg_iter, it end_iter, 
+                               void head_to_head(ptee, ptee))
+{    
+    // could use some sanity check to make sure there are at least two objects 
+    // contestants in the competition
+    
+    while(beg_iter != end_iter)
+    {
+        it trav = beg_iter;
+        ++trav;
+        while(trav != end_iter)    
+            head_to_head(*beg_iter, *(trav++));
+        
+        ++beg_iter;
+    }
+
+    return;
+}
+
+// the only way that this is not better than play_recursive_round_robin is that
+// it changes its first argument. But even if you didn't want this, a similar
+// function that copied its first argument would probably still be faster 
+// than play_recursive_round_robin
+std::vector<Player> recursive_improved_play_round_robin(
+    std::vector<Player>& vec, int num_rounds);
+
+// --------------- OBSOLETE FUNCTIONS ---------------------------------
+
+
+
 // Take a vector of Player objects and play num_rounds of "round-robin" 
 // tournaments between them, where the worst-performing 50% of Player objects
 // in each tournament are disqualified from the next tournament. Return 
@@ -60,7 +110,7 @@ void battle_all(Player&, const std::vector<Player>&);
 // sorted by their score in the final tournament. Note that this function
 // makes every Player object battle itself during the tournament; this is 
 // harmless since the result of this battle adds zero to the total_score member
-// of that Player object.
+// of that Player object. UNLIKELY TO BE NEEDED ANYMORE
 std::vector<Player> play_recursive_round_robin(const std::vector<Player>&, int);
 
 #endif
