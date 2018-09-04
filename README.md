@@ -40,7 +40,15 @@ at the command line. The meanings of these command-line arguments are described 
 
 ## Usage Instructions
 
-Usage: `./executable_name seed num_bots num_rounds num_trials`
+Where
+* `executable_name` is the name of your executable file (which will be `blotto` if you use my Makefile);
+* `seed` is your random number seed to be passed to ``srand`;
+* `num_bots` is the number of random bot players to be created at Step 1 above;
+* `num_rounds` is the number of round-robin rounds in Step 2 and Step 3 above;
+* `num_trials` is the number of 90- and 100-soldier bots to be created and tested in Step 5 above;
+
+usage of the program is as follows <br/> 
+`./executable_name seed num_bots num_rounds num_trials`
 
 (If you use my makefile, your `executable_name` will be `blotto`.)
 
