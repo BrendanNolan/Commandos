@@ -47,10 +47,8 @@ Where
 * `num_rounds` is the number of round-robin rounds in Step 2 and Step 3 above;
 * `num_trials` is the number of 90- and 100-soldier bots to be created and tested in Step 5 above;
 
-usage of the program is as follows <br/> 
+usage of the program is as follows: <br/> 
 `./executable_name seed num_bots num_rounds num_trials`
-
-(If you use my makefile, your `executable_name` will be `blotto`.)
 
 Entering `./blotto 147 10000 6 10000` at the command line produces the following output: 
 
