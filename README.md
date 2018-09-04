@@ -40,13 +40,11 @@ at the command line. The meanings of these command-line arguments are described 
 
 ## Usage Instructions
 
-`./<executable_name>` `seed` `num_bots` `num_rounds` `num_trials`
+Usage: `./<executable_name>` `seed` `num_bots` `num_rounds` `num_trials`
 
 (If you use my makefile, your `executable_name` will be `blotto`.)
 
-Entering `./blotto 147 10000 6 10000` <br/>
-<br/>
-at the command line produces the following output: 
+Entering `./blotto 147 10000 6 10000` at the command line produces the following output: 
 
 `157 competent bots were chosen.`
 
