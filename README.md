@@ -44,7 +44,7 @@ at the command line. The meanings of these command-line arguments are described 
 
 (If you use my makefile, your `executable_name` will be `blotto`.)
 
-Entering ./blotto 147 10000 6 10000 <br/>
+Entering `./blotto 147 10000 6 10000` <br/>
 <br/>
 at the command line produces the following output: 
 
