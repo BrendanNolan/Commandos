@@ -16,7 +16,7 @@ in a single battle).
 
 My plan is as follows:
 
-1. Randomly create `num_bots` ``*bot*" players (each having 100 soldiers), contstrained by the rule that the no group of soldiers sent to a castle of value 4 or lower is larger than any group of soldiers sent to a castle of value 5 or higher (this will rule out bots who do unwise things like sending all of their soldiers to Castle 1, which is worth only 1 point).
+1. Randomly create `num_bots` "*bot*" players (each having 100 soldiers), contstrained by the rule that the no group of soldiers sent to a castle of value 4 or lower is larger than any group of soldiers sent to a castle of value 5 or higher (this will rule out bots who do unwise things like sending all of their soldiers to Castle 1, which is worth only 1 point).
 1. Have these bots play a round-robin tournament, where each bot battles every other bot. Disqualify the lowest-scoring half of the bots according to their total score (or equivalently according to their average score) in the most recent round-robin tournament.
 1. Repeat step 2 a further (`num_rounds` - 1) times (making for `num_rounds` round-robin rounds in total). 
 1. This leaves me with a selection of bot players which can be considered as reasonably good; let me call these the *competent bots*. For my 100-soldier strategy, I simply pick the competent bot which performed best in the final (`num_rounds`th) round of the round-robin tournement.
@@ -32,10 +32,10 @@ I randomly create `num_trials` 90- and 110-soldier bots (using the same constrai
 * The number of possible strategies is so large that, at least with my code, it is not feasible to have `num_bots` be even close to the number of possible strategies (unless the code is to run for eons). 
  
 ### Pros
-My strategy is surprisingly stable: often the bot which wins one round of a round-robin tournament will also win the following round (where half of the bots have been disqualified). For example, in my case, the same bot won the first and second round-robin rounds. You can check this by compiling my code to get an executable called **blotto** and then entering
-./blotto 147 10000 1 10000
-and 
-./blotto 147 10000 2 10000
+My strategy is surprisingly stable: often the bot which wins one round of a round-robin tournament will also win the following round (where half of the bots have been disqualified). You can see an example of this by compiling my code with the provided makefile to get an executable called **blotto** and then entering <br/>
+./blotto 147 10000 1 10000 <br/>
+and  <br/>
+./blotto 147 10000 2 10000 <br/>
 at the command line. The meanings of these command-line arguments are described below. 
 
 ## Usage Instructions
