@@ -33,9 +33,9 @@ I randomly create `num_trials` 90- and 110-soldier bots (using the same constrai
  
 ### Pros
 My strategy is surprisingly stable: often the bot which wins one round of a round-robin tournament will also win the following round (where half of the bots have been disqualified). You can see an example of this by compiling my code with the provided makefile to get an executable called **blotto** and then entering <br/>
-./blotto 147 10000 1 10000 <br/>
+`./blotto 147 10000 1 10000` <br/>
 and  <br/>
-./blotto 147 10000 2 10000 <br/>
+`./blotto 147 10000 2 10000` <br/>
 at the command line. The meanings of these command-line arguments are described below. 
 
 ## Usage Instructions
@@ -43,3 +43,17 @@ at the command line. The meanings of these command-line arguments are described 
 `./<executable_name>` `seed` `num_bots` `num_rounds` `num_trials`
 
 (If you use my makefile, your `executable_name` will be `blotto`.)
+
+Entering ./blotto 147 10000 6 10000 <br/>
+<br/>
+at the command line produces the following output: 
+
+`157 competent bots were chosen.`
+
+`When I have 100 soldiers, I will use this strategy: ( 0, 3, 4, 3, 8, 14, 19, 5, 21, 23 )`
+
+`When I have 90 soldiers,  I will use this strategy: ( 0, 3, 4, 3, 12, 13, 17, 18, 15, 5 )`
+
+`When I have 110 soldiers, I will use this strategy: ( 0, 3, 5, 2, 13, 15, 21, 12, 7, 32 )`
+
+
