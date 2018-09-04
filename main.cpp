@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "blotto.h"
+#include "vec_print.h"
 
 int main(int argc, char* argv[])
 {
