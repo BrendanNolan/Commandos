@@ -4,6 +4,19 @@
 #include <iostream>
 #include <vector>
 
+// Print elements of a container in the range [a, b). Enclose
+// output in parentheses and separate elements by commas. 
+template <class It>
+void iter_print(It a, It b)
+{
+    std::cout << "( " << *a;
+    for (It i = ++a; i != b; ++i)
+        std::cout << ", " << *i;
+    std::cout << " )";
+
+    return;
+}
+
 class Player {
     // A vector of integers describing the strategy for sending soldiers
     // to castles.
@@ -17,6 +30,8 @@ class Player {
 
 public:
     const std::vector<int>& get_soldiers() const {return soldier_deployment;}
+    void print_soldiers() const {iter_print(get_soldiers().begin(),
+        get_soldiers().end());}
     double get_score() const {return total_score;}
 
     // add n to total_score member
@@ -34,6 +49,8 @@ public:
     // (the Player object will have total_score member equal to 0)
     Player(std::vector<int> vec) : soldier_deployment(vec), total_score(0) {}
 };
+
+
 
 // return a unif random variable in the range [0, n]
 int gen_unif_rv(int);

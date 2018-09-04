@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "blotto.h"
-#include "vec_print.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -45,8 +45,7 @@ int main(int argc, char* argv[])
     Player chosen_one = elite_Player_vec[0];
     
     std::cout << "When I have 100 soldiers, I will use this strategy: ";
-    iter_print(chosen_one.get_soldiers().begin(), 
-               chosen_one.get_soldiers().end()); 
+    chosen_one.print_soldiers(); 
     std::cout << std::endl;         
 
     // create a vector which will hold our chosen Players for the 90- and 100-
@@ -76,13 +75,11 @@ int main(int argc, char* argv[])
                         
     std::cout << std::endl << "When I have 90 soldiers, "
                               " I will use this strategy: ";
-    iter_print(unfair_Players[0].get_soldiers().begin(),
-               unfair_Players[0].get_soldiers().end());
+    unfair_Players[0].print_soldiers();
     std::cout << std::endl;           
     std::cout << std::endl << "When I have 110 soldiers, "
                               "I will use this strategy: ";               
-    iter_print(unfair_Players[1].get_soldiers().begin(),
-               unfair_Players[1].get_soldiers().end());
+    unfair_Players[1].print_soldiers();
     std::cout << std::endl; 
                                                                               
                                                                            

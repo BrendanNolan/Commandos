@@ -40,7 +40,7 @@ at the command line. The meanings of these command-line arguments are described 
 
 ## Usage Instructions
 
-Usage: `./<executable_name>` `seed` `num_bots` `num_rounds` `num_trials`
+Usage: `./executable_name` `seed` `num_bots` `num_rounds` `num_trials`
 
 (If you use my makefile, your `executable_name` will be `blotto`.)
 
