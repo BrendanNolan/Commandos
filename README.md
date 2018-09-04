@@ -3,6 +3,10 @@
 This is the readme file for my round-robin search for a reasonable strategy 
 to play a particular variant of the famous Colonel Blotto game.
 
+## Rules and background
+
+(INSERT RULES OF GAME HERE)
+
 Let us refer to a single match between any two players as a *battle*. 
 I assume that I am about to enter a tournament where I am allowed only one troop
 deployment decision which I must use in all of my battles. So I am trying to maximise the expected points gain from a single battle  (rather than trying to maximise the probability of winning more points than an opponent 
