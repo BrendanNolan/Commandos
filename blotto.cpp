@@ -116,7 +116,7 @@ void battle_all(Player& contestant, const std::vector<Player>& field)
 
 // It might be best to have this function 
 // return a std::vector<Player> instead of a std::vector<Player>&
-std::vector<Player>& recursive_improved_play_round_robin(
+std::vector<Player>& recursive_play_round_robin(
     std::vector<Player>& vec, int num_rounds)
 {
     if (num_rounds == 0)
@@ -127,54 +127,14 @@ std::vector<Player>& recursive_improved_play_round_robin(
         for (iter i = vec.begin(); i != vec.end(); ++i)
             i->zero();
 
-        improved_play_round_robin(vec.begin(), vec.end(), make_battle);
+        play_round_robin(vec.begin(), vec.end(), make_battle);
         sort(vec.begin(), vec.end(), compare);
         // remove the latter (lowest-scoring) half of the Players in vec
         sz_tp vec_size = vec.size(); 
         for (sz_tp s = 0; s < vec_size / 2; ++s)
             vec.pop_back();
 
-        return recursive_improved_play_round_robin(vec, num_rounds - 1);    
+        return recursive_play_round_robin(vec, num_rounds - 1);    
     }
 }
 
-// --------------- OBSOLETE FUNCTIONS ---------------------------------
-
-std::vector<Player> play_recursive_round_robin(const std::vector<Player>& vec, 
-                                               int num_rounds)
-{
-    if (num_rounds == 0)  
-        return vec;
-    else
-    {    
-        if (vec.size() < 2)
-            throw std::domain_error("need at least two Player"
-                                    " objects for round robin");
-        
-        std::vector<Player> ret;
-        ret.clear(); // for safety, not strictly necessary
-
-        for (const_iter j = vec.begin(); j != vec.end(); ++j)
-        {
-            // Declare a Player object called plyr and copy the pointee of j
-            // into plyr
-            Player plyr = *j;
-            // disguard possible previously accumulated score
-            plyr.zero();
-            // let plyr battle every other Player object and keep track of 
-            // the total_score of plyr
-            battle_all(plyr, vec);
-
-            ret.push_back(plyr);
-        }    
-        
-        sort(ret.begin(), ret.end(), compare);
-
-        // remove the latter (lowest-scoring) half of the Players in ret
-        sz_tp ret_size = ret.size(); 
-        for (sz_tp s = 0; s < ret_size / 2; ++s)
-            ret.pop_back();
-
-        return play_recursive_round_robin(ret, num_rounds - 1);
-    }    
-}

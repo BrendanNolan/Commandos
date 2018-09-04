@@ -31,7 +31,11 @@ int main(int argc, char* argv[])
 
     std::vector<Player> Player_vec(num_bots);
 
-    std::vector<Player> elite_Player_vec = recursive_improved_play_round_robin(
+    // Beware that the upcoming call to recursive_play_round_robin will alter
+    // Player_vec. In order to avoid confusion, we define a const reference
+    // elite_Player_vec to the nonconst ref returned by
+    // recursive_play_round_robin.
+    const std::vector<Player>& elite_Player_vec = recursive_play_round_robin(
         Player_vec, num_rounds);                         
 
     std::cout << elite_Player_vec.size() << " competent bots were chosen." 

@@ -73,7 +73,7 @@ void battle_all(Player&, const std::vector<Player>&);
 
 // new improved round robin that doesn't play every battle twice
 template <class it, class ptee>
-void improved_play_round_robin(it beg_iter, it end_iter, 
+void play_round_robin(it beg_iter, it end_iter, 
                                void head_to_head(ptee, ptee))
 {    
     // could use some sanity check to make sure there are at least two objects 
@@ -97,21 +97,7 @@ void improved_play_round_robin(it beg_iter, it end_iter,
 // function that copied its first argument would probably still be faster 
 // than play_recursive_round_robin. It might be best to have this function 
 // return a std::vector<Player> instead of a std::vector<Player>& 
-std::vector<Player>& recursive_improved_play_round_robin(
+std::vector<Player>& recursive_play_round_robin(
     std::vector<Player>& vec, int num_rounds);
-
-// --------------- OBSOLETE FUNCTIONS ---------------------------------
-
-
-
-// Take a vector of Player objects and play num_rounds of "round-robin" 
-// tournaments between them, where the worst-performing 50% of Player objects
-// in each tournament are disqualified from the next tournament. Return 
-// a vector of Player objects which contains the surviving PLayer objects,
-// sorted by their score in the final tournament. Note that this function
-// makes every Player object battle itself during the tournament; this is 
-// harmless since the result of this battle adds zero to the total_score member
-// of that Player object. UNLIKELY TO BE NEEDED ANYMORE
-std::vector<Player> play_recursive_round_robin(const std::vector<Player>&, int);
 
 #endif
