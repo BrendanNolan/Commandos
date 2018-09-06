@@ -3,14 +3,24 @@
 This is the readme file for my round-robin search for a reasonable strategy 
 to play a particular variant of the famous Colonel Blotto game.
 
-## Rules and background
+## Rules 
 
-(INSERT RULES OF GAME HERE)
+In this version of the famous *Colonel Blotto* game, a *battle* consists of
+* two players who have 100 soldiers each;
+* 10 Castles numbered 1,...,10 and worth 1,...,10 points respectively.
 
-Let us refer to a single match between any two players as a *battle*. 
-I assume that I am about to enter a tournament where I am allowed only one troop
-deployment decision which I must use in all of my battles. So I am trying to maximise the expected points gain from a single battle  (rather than trying to maximise the probability of winning more points than an opponent 
-in a single battle).
+Each player decides on the number of soldiers to deploy to each castle. For each 
+i between 1 and 10, the player who sent the greater number of sildiers to Castle i
+will receive the i points for that castle (if both players send the same number of soldiers to Castle i, then neither receives the i points from that castle).
+
+
+## Tournament
+
+I assume that I am about to enter a round-robin tournament where I am allowed only one troop deployment decision which I must use in all of my battles. Everyone other contestant in the tournament must do the same; the winner shall be the contestant who accumulates the most points (or equivalently who achieves the highest average score (per battle)). So I am trying to find a strategy to maximise the expected points gain from a single battle  (rather than trying to maximise the probability of winning more points than an opponent in a single battle).
+
+Moreover, I develop two strategies to play the same tournament with one alteration: 
+* The first strategy is for a tournament where I have 90 soldiers while all other contestants still have 100.
+* The second strategy is for a tournament where I have 110 soldiers while all other contestants still have 100.
 
 ## Plan to find a good strategy
 
