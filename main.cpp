@@ -8,12 +8,12 @@
 #include "blotto.h"
 
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
 
     if (argc != 5) 
     {
-        throw std::domain_error("Usage ./<file name>"
+        throw std::invalid_argument("Usage ./<file name>"
                                 " random-number-seed"
                                 " number-of-bots" 
                                 " number-of-round-robin-rounds"
@@ -34,15 +34,15 @@ int main(int argc, char* argv[])
 
     // Beware that the upcoming call to recursive_play_round_robin will alter
     // Player_vec. In order to avoid confusion, we define a const reference
-    // elite_Player_vec to the nonconst ref returned by
+    // competent_bot_Player_vec to the nonconst ref returned by
     // recursive_play_round_robin.
-    const std::vector<Player>& elite_Player_vec = recursive_play_round_robin(
-        Player_vec, num_rounds);                         
+    const std::vector<Player>& competent_bot_Player_vec = 
+        recursive_play_round_robin(Player_vec, num_rounds);                         
 
-    std::cout << elite_Player_vec.size() << " competent bots were chosen." 
-          << std::endl << std::endl;    
+    std::clog << competent_bot_Player_vec.size() 
+              << " competent bots were chosen."  << std::endl << std::endl;    
                                                                               
-    Player chosen_one = elite_Player_vec[0];
+    Player chosen_one = competent_bot_Player_vec[0];
     
     std::cout << "When I have 100 soldiers, I will use this strategy: ";
     chosen_one.print_soldiers(); 
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         for (int j = 0; j < num_trials; ++j)
         {
             Player plyr(soldier_counts[i]);
-            battle_all(plyr, elite_Player_vec);    
+            battle_all(plyr, competent_bot_Player_vec);    
 
             if (plyr.get_score() > max_score)
             {
