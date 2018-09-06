@@ -16,9 +16,10 @@ will receive the i points for that castle (if both players send the same number 
 
 ## Tournament
 
-I assume that I am about to enter a round-robin tournament where I am allowed only one troop deployment decision which I must use in all of my battles. Everyone other contestant in the tournament must do the same; the winner shall be the contestant who accumulates the most points (or equivalently who achieves the highest average score (per battle)). So I am trying to find a strategy to maximise the expected points gain from a single battle  (rather than trying to maximise the probability of winning more points than an opponent in a single battle).
+I assume that I am about to enter a round-robin tournament where I am allowed only one troop deployment decision which I must use in all of my battles. Every other contestant in the tournament must do the same; the winner shall be the contestant who accumulates the most points (or equivalently who achieves the highest average score (per battle)). So I am trying to find a strategy to maximise the expected points gain from a single battle  (rather than trying to maximise the probability of winning more points than an opponent in a single battle).
 
-Moreover, I develop two strategies to play the same tournament with one alteration: 
+Moreover, I develop two strategies to play slightly altered versions of the 
+same tournament
 * The first strategy is for a tournament where I have 90 soldiers while all other contestants still have 100.
 * The second strategy is for a tournament where I have 110 soldiers while all other contestants still have 100.
 
