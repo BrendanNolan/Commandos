@@ -1,7 +1,7 @@
-# Strategic commando Game
+# Strategic commando game
 
 This is the readme file for my round-robin search for a reasonable strategy 
-to play a  trsategic commando game.
+to play a  strategic commando game.
 
 ## Rules 
 
@@ -32,7 +32,7 @@ My plan is as follows:
 1. Repeat step 2 a further (`num_rounds` - 1) times (making for `num_rounds` round-robin rounds in total). 
 1. This leaves me with a selection of bot players which can be considered as reasonably good; let me call these the *competent bots*. For my 100-commando strategy, I simply pick the competent bot which performed best in the final (`num_rounds`th) round of the round-robin tournement.
 1. There is still the question of what to do in the cases where I have 90 and 110 commandos but everyone else still has 100 commandos. 
-Assuming that the huundreds of other contestants in the tournament do not adjust their strategies to account for a single player who has more/fewer commandos, the competent bots will serve well as opponents against which to test 90- and 110-commando strategies.
+Assuming that the hundreds of other contestants in the tournament do not adjust their strategies to account for a single player who has more/fewer commandos, the competent bots will serve well as opponents against which to test 90- and 110-commando strategies.
 I randomly create `num_trials` 90- and 110-commando bots (using the same constraints mentioned in step 1 to avoid bots that do unwise things). For my 90- and 110-commando strategies, I simply pick the 90- and 110-commando bots which perform best against the competent bots. 
 
 ## Pros and cons of this strategy
