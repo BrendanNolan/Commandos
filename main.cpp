@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "blotto.h"
+#include "commando.h"
 
 
 int main(int argc, char** argv)
@@ -44,25 +44,25 @@ int main(int argc, char** argv)
                                                                               
     Player chosen_one = competent_bot_Player_vec[0];
     
-    std::cout << "When I have 100 soldiers, I will use this strategy: ";
-    chosen_one.print_soldiers(); 
+    std::cout << "When I have 100 commandos, I will use this strategy: ";
+    chosen_one.print_commandos(); 
     std::cout << std::endl;         
 
     // create a vector which will hold our chosen Players for the 90- and 100-
-    // soldier scenarios. Initialise them both to hold no soldiers (they will be 
+    // commando scenarios. Initialise them both to hold no commandos (they will be 
     // oberwritten anyway). 
     std::vector<Player> unfair_Players(2, Player({ 0, 0, 0, 0, 0, 
                                                  0, 0, 0, 0, 0 }));
 
-    // for the 90- and 110-soldier scenarios, test 
-    std::vector<int> soldier_counts = { 90, 110 };
+    // for the 90- and 110-commando scenarios, test 
+    std::vector<int> commando_counts = { 90, 110 };
 
     for (sz_tp i = 0; i < 2; ++i)
     {
         int max_score = 0;
         for (int j = 0; j < num_trials; ++j)
         {
-            Player plyr(soldier_counts[i]);
+            Player plyr(commando_counts[i]);
             battle_all(plyr, competent_bot_Player_vec);    
 
             if (plyr.get_score() > max_score)
@@ -73,13 +73,13 @@ int main(int argc, char** argv)
         }
     }         
                         
-    std::cout << std::endl << "When I have 90 soldiers, "
+    std::cout << std::endl << "When I have 90 commandos, "
                               " I will use this strategy: ";
-    unfair_Players[0].print_soldiers();
+    unfair_Players[0].print_commandos();
     std::cout << std::endl;           
-    std::cout << std::endl << "When I have 110 soldiers, "
+    std::cout << std::endl << "When I have 110 commandos, "
                               "I will use this strategy: ";               
-    unfair_Players[1].print_soldiers();
+    unfair_Players[1].print_commandos();
     std::cout << std::endl; 
                                                                               
                                                                            
