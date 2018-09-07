@@ -1,8 +1,8 @@
-blotto: main.o blotto.o
-	g++ -g -o blotto main.o blotto.o
+commando: main.o commando.o
+	g++ -g -o commando main.o commando.o
 
-main.o: main.cpp blotto.h
+main.o: main.cpp commando.h
 	g++ -g -c main.cpp
 
-blotto.o: blotto.cpp blotto.h
-	g++ -g -c blotto.cpp
+commando.o: commando.cpp commando.h
+	g++ -g -c commando.cpp
