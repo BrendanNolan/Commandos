@@ -40,9 +40,9 @@ public:
     // set total_score member to 0
     void zero() {total_score = 0;}
 
-    // Take an integer n (with default value of 100) and construct a Player 
-    // object with n commandos, but not in a stupid way (so it doesn't waste 
-    // large numbers of commandos on low-value towns.)
+    // Take an integer n (with default value of 100) and construct a random 
+    // Player object with n commandos, but not in a stupid way (so it doesn't 
+    // waste large numbers of commandos on low-value towns.)
     Player(int n = 100);
     
     // Create a Player object by providing a commando_deployment member
